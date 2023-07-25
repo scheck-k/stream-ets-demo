@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <title>Stream-ETS: Low-latency End-to-end Speech Synthesis from Electromyography Signals</title>
+  <meta name="description" content="Demo webpage for the Stream-ETS paper">
+</head>
+
+<body>
+   <h1>Stream-ETS: Low-latency End-to-end Speech Synthesis from Electromyography Signals</h1>
+  <h3>Authors: Kevin Scheck, Darius Ivucic, Zhao Ren, Tanja Schultz (Cognitive Systems Lab, University of Bremen, Germany) <br />
+    Accepted at ITG Conference on Speech Communication, 2023</h3>
+
+  <h3>Speech Synthesis from Electromyography Signals</h3>
+  <p>
+    Surface Electromyography (EMG) captures the activity of muscles in a non-invasive manner.
+    EMG signals of articulatory muscles can provide information about the speech production process.
+    As such, EMG signals during (silent) articulation could be used as alternative to the acoustic speech signal  for speech communication.
+    Use cases are when speakers are in noisy environments or when they suffer from speech impairments.  
+    For this task, EMG-to-Speech (ETS) models are trained to synthesize the acoustic speech signal from EMG.
+    For many speech comunication scenarios, e.g., face-to-face communication, the synthesis should ideally occur with minimal latency in a streamable fashion.
+  </p>
+
+  <h3>Stream-ETS</h3>
+  <p>
+    In this work, we propose Stream-ETS, a streamable end-to-end ETS system. 
+    Its architecture consists of a causal EMG encoder, processing EMG signals to Mel-spectrograms, and a causal neural vocoder, which predicts the acoustic speech signal.
+    Using a GPU, Stream-ETS outputs acoustic speech from 10 millisecond chunks of EMG in approx. 8 milliseconds, making the system perform in real-time with a low-latency. We first pre-train both components and then perform end-to-end fine-tuning. 
+    Experiments indicate that end-to-end training increases the naturalness of the speech synthesis. 
+  <h3>Listening examples </h3>
+  <p>In the following, we present listening examples of a test set utterance of the two data sets evaluated in our paper.
+    The proposed model, using end-to-end finetuning is <i>Stream-ETS (E2E)</i>.
+    The same model without finetuning is <i>Stream-ETS (Pre)</i>.
+    
+      <table>
+        <tr>
+          <td><b>Model</b></td>
+          <td><b><a href="https://zenodo.org/record/4064409"><b>Gaddy and Klein Data </b> </a></td>
+          <td><b>S3-Array-Lrg </b></td>
+        </tr>
+        <tr>
+          <td>GT Audio</td>
+          <td>
+            <audio controls
+              src="audio/gt_audio__gaddy_and_klein__voiced_parallel_data_5-5_142.wav">
+              <a
+                href="audio/gt_audio__gaddy_and_klein__voiced_parallel_data_5-5_142.wav">
+                Download audio
+              </a>
+            </audio>
+          </td>
+          <td>
+            <audio controls
+              src="audio/gt_audio__901_001__0526.wav">
+              <a
+                href="audio/gt_audio__901_001__0526.wav">
+                Download audio
+              </a>
+            </audio>
+          </td>
+        </tr>
+        <tr>
+          <td>FCNN + LPCNet</td>
+          <td>
+            <audio controls
+              src="audio/fcnn_og__synth_gaddy_and_klein__voiced_parallel_data_5-5_142.wav">
+              <a
+                href="audio/fcnn_og__synth_gaddy_and_klein__voiced_parallel_data_5-5_142.wav">
+                Download audio
+              </a>
+            </audio>
+          </td>
+          <td>
+            <audio controls
+              src="audio/fcnn_og__synth_901_001__0526.wav">
+              <a
+                href="audio/fcnn_og__synth_901_001__0526.wav">
+                Download audio
+              </a>
+            </audio>
+          </td>
+        <tr>
+          <td>Stream-Enc (TD) + LPCNet</td>
+          <td>
+            <audio controls
+              src="audio/stream_td_lpcnet__synth_gaddy_and_klein__voiced_parallel_data_5-5_142.wav">
+              <a
+                href="audio/stream_td_lpcnet__synth_gaddy_and_klein__voiced_parallel_data_5-5_142.wav">
+                Download audio
+              </a>
+            </audio>
+          </td>
+          <td>
+            <audio controls
+              src="audio/stream_td_lpcnet__synth_901_001__0526.wav">
+              <a
+                href="audio/stream_td_lpcnet__synth_901_001__0526.wav">
+                Download audio
+              </a>
+            </audio>
+          </td>
+        </tr>
+        <tr>
+          <td>Stream-Enc (Sig) + LPCNet</td>
+          <td>
+            <audio controls
+              src="audio/stream_enc_lpcnet__synth_gaddy_and_klein__voiced_parallel_data_5-5_142.wav">
+              <a
+                href="audio/stream_enc_lpcnet__synth_gaddy_and_klein__voiced_parallel_data_5-5_142.wav">
+                Download audio
+              </a>
+            </audio>
+          </td>
+          <td>
+            <audio controls
+              src="audio/stream_enc_lpcnet__synth_901_001__0526.wav">
+              <a
+                href="audio/stream_enc_lpcnet__synth_901_001__0526.wav">
+                Download audio
+              </a>
+            </audio>
+          </td>
+        </tr>
+        <tr>
+          <td>Stream-ETS (Pre)</td>
+          <td>
+            <audio controls
+              src="audio/stream_ets_pre__synth_gaddy_and_klein__voiced_parallel_data_5-5_142.wav">
+              <a
+                href="audio/stream_ets_pre__synth_gaddy_and_klein__voiced_parallel_data_5-5_142.wav">
+                Download audio
+              </a>
+          </td>
+          <td>
+            <audio controls
+              src="audio/stream_ets_pre__synth_901_001__0526.wav">
+              <a
+                href="audio/stream_ets_pre__synth_901_001__0526.wav">
+                Download audio
+              </a>
+          </td>
+        </tr>
+        <tr>
+          <td>Stream-ETS (E2E)</td>
+          <td>
+            <audio controls
+              src="audio/stream_ets_e2e__synth_gaddy_and_klein__voiced_parallel_data_5-5_142.wav">
+              <a
+                href="audio/stream_ets_e2e__synth_gaddy_and_klein__voiced_parallel_data_5-5_142.wav">
+                Download audio
+              </a>
+          </td>
+          <td>
+            <audio controls
+              src="audio/stream_ets_e2e__synth_901_001__0526.wav">
+              <a
+                href="audio/stream_ets_e2e__synth_901_001__0526.wav">
+                Download audio
+              </a>
+          </td>
+        </tr>
+      </table>
+  </p>
+
+</body>
+</html>
